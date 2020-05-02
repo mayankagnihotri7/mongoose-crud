@@ -16,8 +16,8 @@ userRouter.post('/new', (req, res, next) => {
         if (err) return next(err);
         // console.log(req,body,data);
         // sending response to client
-        res.send('User Created Successfully!');
-        res.render('createUserForm');
+        // res.send('User Created Successfully!');
+        res.redirect('/user');
     })
 
     // send a response to client.
@@ -46,10 +46,18 @@ userRouter.get('/:email', (req, res, next) => {
 })
 
 // d. update single user.
-userRouter.put('/:id', (req, res, next) => {
+userRouter.get('/:id/edit', (req, res, next) => {
+    let id = req.params.id;
+    User.findById(id, (err, user) => {
+        if (err) return next(err);
+        res.render('updatePage', { user });
+    })
+})
+
+userRouter.post('/:id', (req, res, next) => {
     User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedUser) => {
         if (err) return next(err);
-        res.json({ updatedUser });
+        res.redirect('/user');
     })
 })
 

@@ -10,6 +10,7 @@
         <% users.forEach(user => { %>
             <a href="/user/<%= user.email %>"><h4><%= user.email %></h4></a>
             <h4><%= user.sports %></h4>
+            <h4><%= user.age %></h4>
         <% }) %>
     <a href="/user/new">Create User</a>
 </body>
